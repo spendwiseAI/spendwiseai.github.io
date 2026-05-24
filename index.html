@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spendwise AI — Smart Personal Finance for iPhone</title>
+<meta name="description" content="AI-powered expense tracking. Scan receipts, import bank statements, track emotional spending, and get AI insights — all offline, all private.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#0A0A0F;
+  --surface:#FFFFFF;
+  --surface2:#F5F5F7;
+  --surface3:#E8E8ED;
+  --accent:#7B74E0;
+  --accent-dk:#524AAF;
+  --green:#1A9E72;
+  --text:#1D1D1F;
+  --sub:#6E6E73;
+  --border:#D2D2D7;
+  --r:18px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:99;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;height:52px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-brand img{width:30px;height:30px;border-radius:7px}
+.nav-brand span{font-size:15px;font-weight:600;color:var(--text);letter-spacing:-0.01em}
+nav ul{display:flex;gap:28px;list-style:none}
+nav a{font-size:13px;font-weight:500;color:var(--sub);text-decoration:none;transition:color .15s}
+nav a:hover{color:var(--text)}
+.nav-cta{
+  background:var(--text);color:#fff !important;
+  padding:7px 16px;border-radius:100px;font-size:13px !important;
+  font-weight:600 !important;transition:opacity .15s !important;
+}
+.nav-cta:hover{opacity:.85 !important}
+
+/* ── HERO ── */
+.hero{
+  text-align:center;
+  padding:80px 24px 72px;
+  max-width:700px;margin:0 auto;
+}
+.hero-logo{
+  width:100px;height:100px;
+  border-radius:22px;
+  margin:0 auto 28px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.18);
+  display:block;
+}
+.hero h1{
+  font-size:clamp(36px,6vw,60px);
+  font-weight:700;
+  letter-spacing:-0.03em;
+  line-height:1.08;
+  color:var(--text);
+  margin-bottom:18px;
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--accent),var(--accent-dk));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero p{
+  font-size:18px;font-weight:300;color:var(--sub);
+  line-height:1.6;max-width:480px;margin:0 auto 36px;
+}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-store{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--text);color:#fff;
+  padding:13px 24px;border-radius:12px;text-decoration:none;
+  transition:opacity .15s,transform .15s;
+}
+.btn-store:hover{opacity:.88;transform:translateY(-1px)}
+.btn-store svg{flex-shrink:0}
+.btn-store-inner span:first-child{display:block;font-size:11px;font-weight:400;opacity:.7;letter-spacing:.02em}
+.btn-store-inner span:last-child{display:block;font-size:16px;font-weight:600;letter-spacing:-0.01em}
+
+/* ── SECTION ── */
+.section{max-width:1000px;margin:0 auto;padding:72px 24px}
+.section-eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:12px;
+}
+.section-title{
+  font-size:clamp(26px,4vw,40px);font-weight:700;
+  letter-spacing:-0.025em;line-height:1.1;
+  color:var(--text);margin-bottom:48px;
+}
+
+/* ── FEATURES GRID ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px}
+.card{
+  background:var(--surface2);
+  padding:32px 28px;transition:background .15s;
+}
+.card:hover{background:var(--surface3)}
+.card:first-child{border-radius:var(--r) 0 0 0}
+.card:nth-child(3){border-radius:0 var(--r) 0 0}
+.card:nth-last-child(3){border-radius:0 0 0 var(--r)}
+.card:last-child{border-radius:0 0 var(--r) 0}
+.card-icon{
+  width:44px;height:44px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:16px;
+}
+.card h3{font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text)}
+.card p{font-size:14px;color:var(--sub);line-height:1.6}
+
+/* ── STRIP ── */
+.strip{background:var(--surface2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 24px}
+.strip-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stat-n{font-size:38px;font-weight:700;color:var(--accent);letter-spacing:-0.03em;line-height:1}
+.stat-l{font-size:13px;color:var(--sub);margin-top:6px;line-height:1.4}
+
+/* ── SUPPORT ── */
+.support{max-width:680px;margin:0 auto;padding:72px 24px}
+.faq{border-top:1px solid var(--border)}
+.faq-item{border-bottom:1px solid var(--border);padding:22px 0}
+.faq-q{font-size:16px;font-weight:600;color:var(--text);margin-bottom:10px}
+.faq-a{font-size:14px;color:var(--sub);line-height:1.7}
+.faq-a a{color:var(--accent);text-decoration:none}
+.faq-a a:hover{text-decoration:underline}
+
+/* ── CONTACT ── */
+.contact{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--r);padding:40px;text-align:center;margin-top:48px;
+}
+.contact h3{font-size:22px;font-weight:700;margin-bottom:10px}
+.contact p{font-size:14px;color:var(--sub);margin-bottom:24px}
+.contact a{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--text);color:#fff;
+  padding:12px 28px;border-radius:100px;
+  font-size:14px;font-weight:600;text-decoration:none;
+  transition:opacity .15s;
+}
+.contact a:hover{opacity:.85}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:24px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+footer p,footer a{font-size:13px;color:var(--sub);text-decoration:none}
+footer a:hover{color:var(--text)}
+.footer-links{display:flex;gap:24px}
+
+@media(max-width:700px){
+  nav{padding:0 20px}
+  nav ul{display:none}
+  .strip-inner{grid-template-columns:repeat(2,1fr)}
+  .hero{padding:60px 20px 60px}
+  footer{flex-direction:column;text-align:center;padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="data:image/png;base64,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" alt="Spendwise AI">
+    <span>Spendwise AI</span>
+  </a>
+  <ul>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#support">Support</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABLAEwDASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAABgcBBAACAwUI/8QAPhAAAQMDAwEEBQkFCQAAAAAAAQIDBAAFEQYSITEHE0FRFjJTYZEUFSJCUnGBk6EjcpKUsSQmM6KywcLD4f/EABoBAAMBAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAuEQABBAADBgUDBQAAAAAAAAABAAIDEQQSIQUTMUFR4VNxkqGxBiKBMpGywcL/2gAMAwEAAhEDEQA/APlNmPOYQW2nmdmSRlJzyal4z0NFCFNLeUR6oxtHnzV3NE+kNDai1Q0qRbYiRESraqQ8sIQD4gZ5P4A125dNF5s+KigZvJSAOpQpHaDLe3PJOVeWfHFdME9BTpsvYg0AHLxf0HHJaiNjJ925R/2r1fQeJaQPmXQ0S4PjpIul1SR9/dpyP6VS8GX6nwQdljOY/gD93Ee1pFW+3zri93MCI/KcP1WWys/pRbb+y7VjzIkz48a0ROpenSEtgD7sk/pTHlw+1V5gR4vzZao/sYDrLafjyr9aHJfZ1rKY8X5jbMl0nlT1xSs/qTSWB22ZOEsbB55j/kfKHbv2cyo9lk3Wz3u2XxmGndKTEX9NpI5JweoFAuTT77PdE32yz7o7OYitNyrW7GRtkpVuWojaCB4cHml/J7JNbNR1OtwYr+wZKGpSFKP3DPNC2wO2oc745pmkCqOgu+I6aIDqM1u+24w+4w8hTbrailaFDBSRwQR51zz7qF9GKOq6Zpyase7ns60fCZJbYXCDjjaTgKVtScnz5UfjSaOKautXv7maPT5W8f6EVVWF4u02Z58P5n+JQ0FN59RH8NT3jf2UfCqHe++s70edRS3yK/3iPso+FZvb8Uo+FX+zyyDVetLZp9c1MJMx3Yp4jJSACSAOMqOMD3mjLt67N4HZ6u1vW67Oy2J29JakBIcQpGDuBGAUnPlwfPNOlJoODb1S9Ljf2Ufw1e05Mci6gt78ZxTLglNjcjjIKgCD5gjwre0acdk2tN2ulxj2i3rx3Tz43Kc/dTkVbh2/SsaaxI9N2Fd06lzb8iWM7SDjOfdTDCuWaaJzXM1PLQE/AIXjduSWk9pVyLaAjeG1Kx4koGTQPuFMftngQ5bjWsINyTKj3BxLKUJbIxtQRnJ6+qfAUts+6k4UV37IIOCjbzAAPmNCuppj60ePoppQDwggf5EUtiaO9ZuZ01pceUP/AIIrRv6SjGNueHzPwVT0daXNSaqtthbkNxlTpCWQ84MhGepxnk4HA8TgUwe2PsikaItkW6WufIu8Nai3I/spSpg4J3naSNpwRz0OOuaX+j7jabKX77JKZN0iqSLbDUg7Q6RkPrOMFKCOE9SceFc5Gs9VP3NFzd1FdFTEAhLvypWUjOcAZxjPh0oGUN1Q5spk+3gOvNe72UwFKv6NTTIjqrRY23Li69sPdqWyNyG93TJXt4++hu+Xq4Xy4uXK7S35Uh5W5SnXCvaCrJSnJ4HJ4HFNKz9uSY+jFW242dyZc+5W0XAUJaeKgfprAAxnPIA5586TG8YHAqpWsaBlNqYN697jI2q0Gtou7YnZBududbBNtMNAilPqA5Oce/G38MUBh9Wf/aKbPqiXAg/Nz7Ee4QR6rElOQn7j5VcjaitT0thk6StQDrqGyR4bjjPq1Lg15u1MBlw0YjyWBzBH981GpF7uyWwJ8pS/+ygWjntTuaEPo05GhMx40RYdQUcZJT0x0HrGgUmlLQdS6NnA7nMRWYk/gm1uSKOyy3qnTNsZgTI7U63t90th1W3cMAZB/AUBnFWZFvnR4LU5+FIaivHDby2yELPuJ4PQ/Cpa/Lx5rafD73KWmiOHNEnoRfM/4kH8+s9CL57SD+fQhlPHI56VmU88p4608zOnv2UbnEeIPT3Rf6EXz2kH8+s9CL57WD/MUKPsuMhsutlAdQHG9wxuSSQCPMZB+FauNqbbbWtISl0EoJ+sASP6g0ZmdPfsjc4nxB6e6LToe+e0g/zFd7do+fEmsSrlNgx4rDiXVr77Jwk5wKCMpPTHFdlw5SQFKivJBZD4JbI/Zk4C/wB3PGelGdg5e6Rw+IcK3g9Pdepra5MXXUkqZGJLJIShR+sAMZ/GvFzUVGKzc7MbK6ooxEwMHAaLejrT2qrS0w0iY3IElmC40mSdgUjbEdbQhBSn6WVKRtKwSjaADgk0CHpWUjqrBpMGNr6Cw2UKtr8haEoBkuuftJe0KGHsEApO4dd4wMEK61VRroLWpMiK+psBlMYpcTuiBMVbKlN5GAoqUlfhygc55ARWvjilQTso/Xr6IpTQdtr83umG44ckuJK1oOUv7vo9XGyEjqU9ck81o3rqHtebXbX22VMqaShlxKco3ultBUADgJcSnnIO3lKuNoJWUUE7KLNXaqhXy3xojVtVFSh5LqkhZIaSEbe7byThPjxtHCeDjNd73rSJcoj7ItBjq+TLhxSl8qDUcraUhs58E92cY+2aCzUDmikWpJqCag1FO0l//9k=" alt="Spendwise AI" class="hero-logo">
+  <h1>Finance tracking,<br><em>powered by AI.</em></h1>
+  <p>Scan receipts, import bank statements, track emotional spending, and get AI-powered insights — all offline, all private.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-store">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div class="btn-store-inner">
+        <span>Download on the</span>
+        <span>App Store</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="strip">
+  <div class="strip-inner">
+    <div><div class="stat-n">200+</div><div class="stat-l">European merchants preloaded</div></div>
+    <div><div class="stat-n">8</div><div class="stat-l">Spending mood categories</div></div>
+    <div><div class="stat-n">6mo</div><div class="stat-l">AI cash flow forecast</div></div>
+    <div><div class="stat-n">100%</div><div class="stat-l">Offline — no account needed</div></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="section-eyebrow">Features</div>
+  <div class="section-title">Everything your finances need.</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-icon" style="background:#F0EFFE">📷</div>
+      <h3>Receipt Scanning</h3>
+      <p>Point your camera at any receipt in any European language. AI extracts amount, merchant, date, and category automatically.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#E6F7F2">🏦</div>
+      <h3>Bank Statement Import</h3>
+      <p>Import PDF, CSV, or photo of your bank statement. AI parses hundreds of transactions in seconds with smart categorisation.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#FFF4E6">🎤</div>
+      <h3>Voice Entry</h3>
+      <p>Say "Coffee 4.50" or "Aldi 23 euros" — expense logged instantly. Fastest way to track on the go.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#FEF0F0">😌</div>
+      <h3>Mood Tracking</h3>
+      <p>Tag how you felt when spending. Discover how much you spend when stressed vs. content — a unique insight no other app offers.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#E6F5FE">✈️</div>
+      <h3>Multi-Currency Trips</h3>
+      <p>Track expenses abroad in local currency with offline exchange rates for 30+ currencies. No internet needed.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#F5EFFE">🤖</div>
+      <h3>AI Financial Advisor</h3>
+      <p>Ask anything about your spending in plain English. Get personalised insights and answers based on your actual data.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#E6F7F2">📊</div>
+      <h3>6-Month Forecast</h3>
+      <p>AI predicts your cash flow for the next 6 months based on recurring expenses and income patterns.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#F0EFFE">🔒</div>
+      <h3>Private by Design</h3>
+      <p>All data stays on your iPhone. No account required. PIN + Face ID protection. Your data never leaves your device.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon" style="background:#FFFBE6">📤</div>
+      <h3>Excel Export</h3>
+      <p>Export all expenses and income to a formatted Excel file with 3 sheets — expenses, income, and monthly summary.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT -->
+<section class="support" id="support">
+  <div class="section-eyebrow">Support</div>
+  <div class="section-title">Frequently asked questions.</div>
+  <div class="faq">
+    <div class="faq-item">
+      <div class="faq-q">Does Spendwise AI require an account?</div>
+      <div class="faq-a">No. All your financial data is stored locally on your iPhone. No account, no sign-in, no cloud sync required. Your data stays private on your device.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How does receipt scanning work?</div>
+      <div class="faq-a">Spendwise AI uses Apple's Vision framework for on-device OCR to read receipts. For complex receipts, AI extracts the key fields. Receipt images are processed locally and never uploaded to any server.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which languages are supported for scanning?</div>
+      <div class="faq-a">German, English, French, Dutch, Italian, Spanish, Portuguese, and Polish — covering most of Western and Central Europe.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What is the AI free tier?</div>
+      <div class="faq-a">Free users get 15 AI calls per month across all AI features. AI Chat is limited to 20 messages/month, Receipt Scan to 5 scans/month. Weekly insights and 6-month forecast are always free.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does the app work offline?</div>
+      <div class="faq-a">Yes. All core features — adding expenses, viewing summaries, budget tracking, trip expenses, and Excel export — work completely offline. Only AI features require internet.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">I forgot my PIN. How do I reset it?</div>
+      <div class="faq-a">After 3 incorrect PIN attempts, a "Forgot PIN? Reset app" option appears. Your expense data is preserved — only the PIN is reset.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I delete all my data?</div>
+      <div class="faq-a">Go to Settings → Reset All Data within the app. This permanently removes all expenses, income, trips, and settings from your device.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I contact support?</div>
+      <div class="faq-a">Email us at <a href="mailto:spendwiseai@gmail.com">spendwiseai@gmail.com</a> — we aim to respond within 24 hours.</div>
+    </div>
+  </div>
+
+  <div class="contact" id="contact">
+    <h3>Need more help?</h3>
+    <p>Send us an email and we'll get back to you within 24 hours.</p>
+    <a href="mailto:spendwiseai@gmail.com">✉️ spendwiseai@gmail.com</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Spendwise AI. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="#support">Support</a>
+    <a href="mailto:spendwiseai@gmail.com">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
